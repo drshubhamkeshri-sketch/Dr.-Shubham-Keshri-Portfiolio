@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Operations Desk | Dr. Shubham Keshri</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <!-- 1. Passkey Authentication Modal (Security Gateway) -->
+  <div id="auth-wall" class="auth-overlay">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-emblem">SK</div>
+        <div>
+          <h2>Executive Authentication</h2>
+          <p class="mono">Operations & Telemetry Command Portal</p>
+        </div>
+      </div>
+      <p class="auth-desc">Enter authorization passkey to access Dr. Shubham Keshri's database registry, Cloudinary CDN pipeline, and executive communications desk.</p>
+      
+      <form id="auth-form">
+        <div class="form-group">
+          <label for="passkey-input">Executive Passkey</label>
+          <input type="password" id="passkey-input" class="admin-input" placeholder="Enter passkey (default: keshri2026)" required autofocus>
+        </div>
+        <div id="auth-error" class="auth-alert"></div>
+        <button type="submit" id="auth-submit-btn" class="btn-primary" style="width: 100%;">Authorize Access &rarr;</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Main Executive Admin Console Layout -->
+  <div id="admin-app" class="admin-layout" style="display: none;">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <div class="auth-emblem small">SK</div>
+        <div>
+          <h3>Dr. Shubham Keshri</h3>
+          <span class="mono">Executive Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="tab-overview">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          </span>
+          Executive Overview
+        </button>
+
+        <button class="nav-item" data-tab="tab-inquiries">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </span>
+          Inquiries & Leads
+          <span class="badge" id="sidebar-inquiry-badge">0</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-media">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          </span>
+          Media & Cloudinary
+        </button>
+
+        <button class="nav-item" data-tab="tab-profile">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </span>
+          Biography & Roles
+        </button>
+
+        <button class="nav-item" data-tab="tab-system">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+          </span>
+          Infrastructure Health
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/" class="btn-subtle" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span>&larr;</span> View Public Portfolio
+        </a>
+        <button id="logout-btn" class="btn-danger" style="margin-top: 10px; width: 100%;">Terminate Session</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- Top Bar -->
+      <header class="admin-topbar">
+        <div>
+          <h1 id="page-title">Executive Operations Overview</h1>
+          <p class="topbar-subtitle">Real-time telemetry, MongoDB submissions, and Cloudinary media pipeline</p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="status-indicator-group">
+            <span class="status-pill" id="db-status-pill">
+              <span class="status-dot"></span> MongoDB
+            </span>
+            <span class="status-pill" id="cloud-status-pill">
+              <span class="status-dot"></span> Cloudinary CDN
+            </span>
+          </div>
+          <button id="refresh-data-btn" class="btn-subtle" title="Refresh all registries">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-content-wrap">
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tab-overview" class="admin-tab-pane active">
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Total Inquiries</span>
+                <span class="kpi-icon-box">✉</span>
+              </div>
+              <div class="kpi-value" id="kpi-inquiries">0</div>
+              <div class="kpi-subtext">Registered across all channels</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Unread Leads</span>
+                <span class="kpi-icon-box gold">●</span>
+              </div>
+              <div class="kpi-value gold" id="kpi-unread">0</div>
+              <div class="kpi-subtext">Pending executive triage</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Curated Media Assets</span>
+                <span class="kpi-icon-box">🖼</span>
+              </div>
+              <div class="kpi-value" id="kpi-media">0</div>
+              <div class="kpi-subtext">High-res photographic archive</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Cognitive Land Atoms</span>
+                <span class="kpi-icon-box cyan">🌐</span>
+              </div>
+              <div class="kpi-value cyan">1,800</div>
+              <div class="kpi-subtext">CALI AI Cadastral Partition Grid</div>
+            </div>
+          </div>
+
+          <!-- Quick Recent Inquiries Table -->
+          <div class="admin-card" style="margin-top: 28px;">
+            <div class="card-header-flex">
+              <div>
+                <h2>Recent Executive Inquiries</h2>
+                <p>Latest high-level communications received via public portfolio contact desk</p>
+              </div>
+              <button class="btn-subtle" onclick="switchTab('tab-inquiries')">View All Inquiries &rarr;</button>
+            </div>
+
+            <div class="table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date / Time</th>
+                    <th>Name</th>
+                    <th>Organization</th>
+                    <th>Inquiry Nature</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="overview-inquiries-body">
+                  <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading registry...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: INQUIRIES & LEADS -->
+        <section id="tab-inquiries" class="admin-tab-pane">
+          <div class="admin-card">
+            <div class="card-header-flex">
+              <div>
+                <h2>Executive Communications Registry</h2>
+                <p>Manage, triage, and archive inquiries stored in database</p>
+              </div>
+
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <input type="text" id="inquiry-search-input" class="admin-input" placeholder="Search by name, email, or org..." style="width: 280px;">
+                <select id="inquiry-filter-status" class="admin-input" style="width: 140px;">
+                  <option value="all">All Statuses</option>
+                  <option value="unread">Unread Only</option>
+                  <option value="reviewed">Reviewed</option>
+                  <option value="archived">Archived</option>
+                </select>
+                <a href="/api/contacts/export" class="btn-subtle" title="Download all leads as CSV file">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  Export CSV
+                </a>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Sender</th>
+                    <th>Email & Contact</th>
+                    <th>Organization</th>
+                    <th>Nature</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Operations</th>
+                  </tr>
+                </thead>
+                <tbody id="inquiries-full-body">
+                  <tr><td colspan="7" style="text-align: center;">Loading records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: MEDIA & CLOUDINARY -->
+        <section id="tab-media" class="admin-tab-pane">
+          <div class="split-grid">
+            <!-- Upload Card -->
+            <div class="admin-card">
+              <h2>Cloudinary CDN Upload Desk</h2>
+              <p>Upload new photographic documentation directly to Cloudinary asset distribution pipeline</p>
+
+              <form id="admin-upload-form" style="margin-top: 20px;">
+                <div class="form-group">
+                  <label for="media-file">Select High-Resolution Image File</label>
+                  <input type="file" id="media-file" class="admin-input" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="media-title">Asset Title / Document Name</label>
+                  <input type="text" id="media-title" class="admin-input" placeholder="e.g. Dialogue with Senior Parliamentary Delegation" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="media-category">Portfolio Archive Category</label>
+                  <select id="media-category" class="admin-input">
+                    <option value="governance">State Policy & Governance</option>
+                    <option value="grassroots">Grassroots & Social Action</option>
+                    <option value="academic">Scholarship & Culture</option>
+                    <option value="portrait">Executive Portrait</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="media-caption">Historical / Contextual Caption</label>
+                  <textarea id="media-caption" class="admin-input" rows="3" placeholder="Context, participants, and strategic importance..."></textarea>
+                </div>
+
+                <button type="submit" id="admin-upload-btn" class="btn-primary" style="width: 100%;">
+                  Transmit Asset to Cloudinary &rarr;
+                </button>
+              </form>
+
+              <div id="upload-feedback" style="margin-top: 16px;"></div>
+            </div>
+
+            <!-- Media Summary & Sync Status -->
+            <div class="admin-card">
+              <h2>Media Archive Telemetry</h2>
+              <p>Current distribution of photographic assets across database and Cloudinary CDN</p>
+
+              <div class="sys-metrics-box" style="margin-top: 20px;">
+                <div class="sys-row">
+                  <span>Total Curated Records:</span>
+                  <strong id="media-count-stat">12 Active</strong>
+                </div>
+                <div class="sys-row">
+                  <span>CDN Target:</span>
+                  <strong id="media-cdn-target">Cloudinary (shubham_keshri_portfolio)</strong>
+                </div>
+                <div class="sys-row">
+                  <span>Local Document Fallback:</span>
+                  <strong style="color: var(--emerald-primary);">Active (/assets/images/)</strong>
+                </div>
+                <div class="sys-row">
+                  <span>Resolution Transformation:</span>
+                  <strong>Auto-Optimization & WebP Format</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Existing Media Grid -->
+          <div class="admin-card" style="margin-top: 28px;">
+            <h2>Photographic Asset Directory</h2>
+            <p>Live registry of all photographic assets displayed on public website</p>
+
+            <div class="media-admin-grid" id="media-admin-grid">
+              <p style="color: var(--text-muted);">Loading media repository...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 4: BIOGRAPHY & CONTENT -->
+        <section id="tab-profile" class="admin-tab-pane">
+          <div class="admin-card">
+            <div class="card-header-flex">
+              <div>
+                <h2>Dynamic Profile & Strategic Positioning</h2>
+                <p>Modify executive statements, official contact coordinates, and corporate roles in real time</p>
+              </div>
+              <button id="save-profile-btn" class="btn-primary">Synchronize Live Site &rarr;</button>
+            </div>
+
+            <form id="profile-edit-form" style="margin-top: 24px;">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="prof-name">Executive Name</label>
+                  <input type="text" id="prof-name" class="admin-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="prof-title">Primary Executive Title</label>
+                  <input type="text" id="prof-title" class="admin-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="prof-role">Corporate Stewardship Headline</label>
+                <input type="text" id="prof-role" class="admin-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="prof-tagline">Strategic Mission Statement</label>
+                <textarea id="prof-tagline" class="admin-input" rows="3" required></textarea>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="prof-email">Official Executive Email</label>
+                  <input type="email" id="prof-email" class="admin-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="prof-website">Enterprise Portal URL</label>
+                  <input type="url" id="prof-website" class="admin-input" required>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="prof-base">Corporate Head Office</label>
+                  <input type="text" id="prof-base" class="admin-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="prof-current-address">Operational Base Address</label>
+                  <input type="text" id="prof-current-address" class="admin-input" required>
+                </div>
+              </div>
+            </form>
+            <div id="profile-feedback" style="margin-top: 14px;"></div>
+          </div>
+        </section>
+
+        <!-- TAB 5: SYSTEM HEALTH -->
+        <section id="tab-system" class="admin-tab-pane">
+          <div class="admin-card">
+            <h2>Executive Infrastructure Diagnostics</h2>
+            <p>System status, database connections, and runtime environment specifications</p>
+
+            <div class="sys-metrics-box" style="margin-top: 24px;">
+              <div class="sys-row">
+                <span>Database Connection Status:</span>
+                <strong id="sys-db-status">Checking...</strong>
+              </div>
+              <div class="sys-row">
+                <span>Database Storage Provider:</span>
+                <strong id="sys-db-provider">MongoDB / Local Cache</strong>
+              </div>
+              <div class="sys-row">
+                <span>Cloudinary CDN Status:</span>
+                <strong id="sys-cloud-status">Checking...</strong>
+              </div>
+              <div class="sys-row">
+                <span>Runtime Engine:</span>
+                <strong id="sys-runtime">Node.js (win32)</strong>
+              </div>
+              <div class="sys-row">
+                <span>Server Uptime:</span>
+                <strong id="sys-uptime">0s</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Message Detail Modal -->
+  <div id="message-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-msg-title">Inquiry Details</h3>
+        <button id="modal-msg-close" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-msg-body">
+        <!-- Dynamically rendered -->
+      </div>
+      <div class="modal-footer" id="modal-msg-footer">
+        <!-- Buttons -->
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
