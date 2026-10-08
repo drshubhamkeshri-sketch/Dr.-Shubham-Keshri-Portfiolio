@@ -1,19 +1,24 @@
 {
   "name": "shubham-keshri-portfolio",
   "version": "1.0.0",
-  "description": "Executive portfolio website for Dr. Shubham Keshri with Node.js, Express, MongoDB, and Cloudinary",
-  "main": "server.js",
+  "description": "Executive portfolio website for Dr. Shubham Keshri with separated backend (Render) and frontend (Vercel), MongoDB Atlas, and Cloudinary",
+  "main": "backend/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "dev:backend": "node --watch backend/server.js",
+    "dev:frontend": "npx serve frontend -p 3000",
+    "seed": "node backend/scripts/seed.js"
   },
   "keywords": [
     "portfolio",
     "cali-ai",
     "land-intelligence",
     "deep-tech",
-    "mongodb",
-    "cloudinary"
+    "mongodb-atlas",
+    "cloudinary",
+    "render",
+    "vercel"
   ],
   "author": "Dr. Shubham Keshri",
   "license": "ISC",

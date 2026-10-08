@@ -1,0 +1,28 @@
+{
+  "name": "shubham-keshri-portfolio-backend",
+  "version": "1.0.0",
+  "description": "Executive API server for Dr. Shubham Keshri Portfolio with Node.js, Express, MongoDB Atlas, and Cloudinary",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "keywords": [
+    "portfolio-backend",
+    "mongodb-atlas",
+    "cloudinary",
+    "express",
+    "render"
+  ],
+  "author": "Dr. Shubham Keshri",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "multer": "^1.4.5-lts.1"
+  }
+}

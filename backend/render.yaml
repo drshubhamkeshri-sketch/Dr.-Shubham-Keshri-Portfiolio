@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: dr-shubham-keshri-portfolio-backend
+    env: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        value: jzmuwtrf
+      - key: CLOUDINARY_API_KEY
+        value: "789451557362313"
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_URL
+        sync: false
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: ADMIN_PASSKEY
+        value: keshri2026
