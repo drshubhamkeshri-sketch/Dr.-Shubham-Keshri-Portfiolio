@@ -4,8 +4,7 @@
   "description": "Executive Portfolio frontend for Dr. Shubham Keshri ready for Vercel deployment",
   "scripts": {
     "start": "npx serve . -p 3000",
-    "dev": "npx serve . -p 3000",
-    "build": "echo \"Frontend build complete\""
+    "dev": "npx serve . -p 3000"
   },
   "keywords": [
     "portfolio-frontend",
