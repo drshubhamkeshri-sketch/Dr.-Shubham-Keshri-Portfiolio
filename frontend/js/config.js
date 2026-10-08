@@ -3,8 +3,8 @@
  * Dynamically resolves the API Base URL for local development and production (Vercel -> Render)
  */
 (function () {
-  // Default Render Backend Service URL (Update this if your Render service has a specific name)
-  const DEFAULT_RENDER_BACKEND = 'https://dr-shubham-keshri-portfolio-backend.onrender.com';
+  // Default Render Backend Service URL
+  const DEFAULT_RENDER_BACKEND = 'https://dr-shubham-keshri-portfiolio.onrender.com';
 
   function resolveApiBaseUrl() {
     // 1. Check for manual override in localStorage

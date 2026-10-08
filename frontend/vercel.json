@@ -21,7 +21,7 @@
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://dr-shubham-keshri-portfolio-backend.onrender.com/api/:match*"
+      "destination": "https://dr-shubham-keshri-portfiolio.onrender.com/api/:match*"
     },
     {
       "source": "/admin",

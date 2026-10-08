@@ -133,7 +133,7 @@ router.get('/', async (req, res) => {
 
     if (!profile) {
       // Check local JSON backup
-      const jsonBackupPath = path.join(__dirname, '..', '..', 'data', 'profile.json');
+      const jsonBackupPath = path.join(__dirname, '..', 'data', 'profile.json');
       if (fs.existsSync(jsonBackupPath)) {
         try {
           const jsonContent = JSON.parse(fs.readFileSync(jsonBackupPath, 'utf8'));
@@ -169,7 +169,7 @@ router.put('/', async (req, res) => {
 
     // Also sync to data/profile.json as local backup if folder exists
     try {
-      const dataDir = path.join(__dirname, '..', '..', 'data');
+      const dataDir = path.join(__dirname, '..', 'data');
       if (fs.existsSync(dataDir)) {
         fs.writeFileSync(path.join(dataDir, 'profile.json'), JSON.stringify(saved, null, 2), 'utf8');
       }

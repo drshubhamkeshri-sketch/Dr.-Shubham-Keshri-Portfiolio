@@ -63,40 +63,15 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Optional: Serve static assets if frontend directory exists locally (convenience in dev)
-const frontendPath = path.join(__dirname, '..', 'frontend');
-const publicPath = path.join(__dirname, '..', 'public');
-const staticPath = fs.existsSync(frontendPath) ? frontendPath : (fs.existsSync(publicPath) ? publicPath : null);
-
-if (staticPath) {
-  app.use(express.static(staticPath, {
-    setHeaders: (res, filePath) => {
-      if (filePath.endsWith('.js') || filePath.endsWith('.css') || filePath.endsWith('.html')) {
-        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      }
-    }
-  }));
-
-  app.get('/admin', (req, res) => {
-    const adminFile = path.join(staticPath, 'admin.html');
-    if (fs.existsSync(adminFile)) {
-      return res.sendFile(adminFile);
-    }
-    res.redirect('/');
-  });
-}
-
 // API Root Information for Render
 app.get('/', (req, res) => {
-  if (staticPath && fs.existsSync(path.join(staticPath, 'index.html')) && req.headers.accept?.includes('text/html')) {
-    return res.sendFile(path.join(staticPath, 'index.html'));
-  }
-
   res.json({
-    service: 'Dr. Shubham Keshri — Executive API Server',
+    service: 'Dr. Shubham Keshri — Executive REST API Server',
     version: '1.0.0',
     status: 'online',
-    environment: process.env.NODE_ENV || 'production',
+    frontendUrl: process.env.CLIENT_URL || 'https://drshubhamkeshri.vercel.app',
+    database: 'MongoDB Atlas',
+    mediaStorage: 'Cloudinary CDN',
     endpoints: {
       health: '/api/health',
       profile: '/api/profile',
@@ -105,8 +80,17 @@ app.get('/', (req, res) => {
       contacts: 'GET /api/contacts (Admin)',
       uploadCloudinary: 'POST /api/upload/cloudinary',
       adminLogin: 'POST /api/admin/login'
-    },
-    documentation: 'https://github.com/praveen-kumar-007/Dr.-Shubham-Keshri-Portfiolio'
+    }
+  });
+});
+
+// 404 JSON Handler for undefined routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Endpoint not found on Executive API Server',
+    frontendApp: process.env.CLIENT_URL || 'https://drshubhamkeshri.vercel.app',
+    healthCheck: '/api/health'
   });
 });
 

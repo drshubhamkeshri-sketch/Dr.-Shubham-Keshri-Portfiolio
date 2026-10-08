@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Executive Portfolio frontend for Dr. Shubham Keshri ready for Vercel deployment",
   "scripts": {
-    "start": "npx serve . -p 3000",
-    "dev": "npx serve . -p 3000"
+    "start": "serve . -p 3000",
+    "dev": "serve . -p 3000"
   },
   "keywords": [
     "portfolio-frontend",
@@ -14,5 +14,8 @@
     "vanilla-js"
   ],
   "author": "Dr. Shubham Keshri",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
 }
