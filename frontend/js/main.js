@@ -496,15 +496,27 @@ async function loadDynamicProfile() {
         });
       }
 
-      if (p.title) {
-        document.querySelectorAll('.brand-meta .mono').forEach(el => {
-          el.textContent = p.title.toUpperCase();
-        });
-      }
+      // Keep navbar brand tag compact & prestigious (never wrap or stretch header height)
+      document.querySelectorAll('.brand-meta .brand-role-tag').forEach(el => {
+        el.textContent = 'EXECUTIVE DIRECTOR';
+      });
 
-      if (p.executiveRole) {
-        const footerRole = document.querySelector('.portrait-hologram-footer p');
-        if (footerRole) footerRole.textContent = p.executiveRole;
+      // Route the full formal title & extender designation to the hero title banner & portrait hologram
+      if (p.title) {
+        const heroTitle = document.getElementById('hero-formal-title');
+        if (heroTitle) {
+          const titleTextEl = heroTitle.querySelector('.title-text') || heroTitle;
+          titleTextEl.textContent = p.title;
+        }
+        const hologramRole = document.getElementById('portrait-hologram-role');
+        if (hologramRole) {
+          hologramRole.textContent = p.title;
+        }
+      } else if (p.executiveRole) {
+        const hologramRole = document.getElementById('portrait-hologram-role');
+        if (hologramRole) {
+          hologramRole.textContent = p.executiveRole;
+        }
       }
 
       // 3. Strategic Mission Statement / Tagline

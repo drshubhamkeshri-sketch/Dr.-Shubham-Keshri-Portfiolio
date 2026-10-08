@@ -274,9 +274,10 @@ header.luxury-nav.scrolled {
 .brand-badge {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-decoration: none;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .brand-emblem {
@@ -311,44 +312,59 @@ header.luxury-nav.scrolled {
   20%, 100% { transform: translateX(100%) rotate(45deg); }
 }
 
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  max-width: 220px;
+}
+
 .brand-meta h2 {
   font-family: var(--font-heading);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--text-primary);
-  margin: 0 0 2px 0;
-  line-height: 1.2;
+  margin: 0;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
-.brand-meta p {
+.brand-meta p,
+.brand-meta .brand-role-tag {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--gold-primary);
   letter-spacing: 0.08em;
-  margin: 0;
+  margin: 2px 0 0 0;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
 }
 
 nav.nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-shrink: 1;
 }
 
 nav.nav-links .nav-link {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--text-secondary);
   text-decoration: none;
   position: relative;
-  padding: 8px 0;
-  transition: color 0.2s ease;
+  padding: 6px 0;
   white-space: nowrap;
+  transition: color 0.2s ease;
 }
 
 nav.nav-links .nav-link:hover {
@@ -516,8 +532,54 @@ nav.nav-links .nav-link.active::after {
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
-  margin-bottom: 26px;
+  margin-bottom: 18px;
   color: var(--text-primary);
+}
+
+/* ==========================================================================
+   PROMINENT EXECUTIVE EXTENDER TITLE BADGE (HERO)
+   ========================================================================== */
+.hero-executive-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 8px 18px;
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: clamp(11.5px, 1.3vw, 13.5px);
+  color: var(--gold-light);
+  letter-spacing: 0.03em;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  max-width: 100%;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+}
+
+.hero-executive-title:hover {
+  border-color: var(--gold-primary);
+  background: rgba(217, 119, 6, 0.12);
+  transform: translateY(-2px);
+}
+
+.hero-executive-title .title-star {
+  color: var(--cyan-primary);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.hero-executive-title .title-text {
+  font-weight: 600;
+}
+
+[data-theme="light"] .hero-executive-title {
+  background: rgba(217, 119, 6, 0.07);
+  border-color: rgba(217, 119, 6, 0.32);
+  color: #b45309;
 }
 
 .hero-desc {
@@ -2654,8 +2716,25 @@ footer .footer-content {
   }
 }
 
-/* 2. Tablets & Mobile Nav Collapse (<= 992px) */
-@media (max-width: 992px) {
+/* 1.5. Laptops & Medium Screens (1081px - 1260px) */
+@media (max-width: 1260px) {
+  nav.nav-links {
+    gap: 14px;
+  }
+  nav.nav-links .nav-link {
+    font-size: 12.5px;
+  }
+  .nav-cta-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .brand-badge {
+    gap: 10px;
+  }
+}
+
+/* 2. Tablets, Compact Laptops & Mobile Nav Collapse (<= 1080px) */
+@media (max-width: 1080px) {
   nav.nav-links {
     display: none;
   }
@@ -2666,11 +2745,18 @@ footer .footer-content {
     width: calc(100% - 32px);
     top: 14px;
     margin: 14px auto 0 auto;
-    height: 62px;
+    height: 60px;
     padding: 0 10px 0 16px;
   }
-  .brand-meta p {
+  .brand-meta p,
+  .brand-meta .brand-role-tag {
     display: none; /* Keep brand emblem + title compact on mobile nav */
+  }
+  .directorships-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .states-radar-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -2822,8 +2908,27 @@ footer .footer-content {
   }
 
   /* Other Sections */
+  .hero-executive-title {
+    font-size: 11px;
+    padding: 6px 12px;
+    gap: 6px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    line-height: 1.45;
+  }
+  .directorships-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .directorship-card {
+    padding: 24px 20px;
+  }
   .states-radar-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .state-radar-card {
+    padding: 24px 20px;
   }
   .gallery-interactive-grid {
     grid-template-columns: 1fr;
