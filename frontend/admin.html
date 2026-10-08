@@ -30,7 +30,7 @@
           <label for="passkey-input">Executive Passkey</label>
           <input type="password" id="passkey-input" class="admin-input" placeholder="Enter passkey (default: keshri2026)" required autofocus>
         </div>
-        <div id="auth-error" class="auth-alert"></div>
+        <div id="auth-error" class="auth-alert" style="display: none;"></div>
         <button type="submit" id="auth-submit-btn" class="btn-primary" style="width: 100%;">Authorize Access &rarr;</button>
       </form>
     </div>
@@ -57,26 +57,54 @@
           Executive Overview
         </button>
 
-        <button class="nav-item" data-tab="tab-inquiries">
+        <button class="nav-item" data-tab="tab-identity">
           <span class="nav-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           </span>
-          Inquiries & Leads
-          <span class="badge" id="sidebar-inquiry-badge">0</span>
+          Identity & Avatar Studio
+        </button>
+
+        <button class="nav-item" data-tab="tab-experience">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          </span>
+          Directorships & Roles
+        </button>
+
+        <button class="nav-item" data-tab="tab-education">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+          </span>
+          Education & Statutory
+        </button>
+
+        <button class="nav-item" data-tab="tab-research">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </span>
+          Scholarly Treatises
+        </button>
+
+        <button class="nav-item" data-tab="tab-electoral">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </span>
+          Electoral Strategy Radar
         </button>
 
         <button class="nav-item" data-tab="tab-media">
           <span class="nav-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
           </span>
-          Media & Cloudinary
+          Media & Cloudinary CDN
         </button>
 
-        <button class="nav-item" data-tab="tab-profile">
+        <button class="nav-item" data-tab="tab-inquiries">
           <span class="nav-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </span>
-          Biography & Roles
+          Inquiries & Leads Desk
+          <span class="badge" id="sidebar-inquiry-badge">0</span>
         </button>
 
         <button class="nav-item" data-tab="tab-system">
@@ -102,7 +130,7 @@
       <header class="admin-topbar">
         <div>
           <h1 id="page-title">Executive Operations Overview</h1>
-          <p class="topbar-subtitle">Real-time telemetry, MongoDB submissions, and Cloudinary media pipeline</p>
+          <p class="topbar-subtitle">Real-time telemetry, MongoDB Atlas persistence, and Cloudinary media pipeline</p>
         </div>
 
         <div class="topbar-actions">
@@ -124,7 +152,6 @@
 
         <!-- TAB 1: OVERVIEW -->
         <section id="tab-overview" class="admin-tab-pane active">
-          <!-- KPI Cards -->
           <div class="kpi-grid">
             <div class="kpi-card">
               <div class="kpi-header">
@@ -150,16 +177,16 @@
                 <span class="kpi-icon-box">🖼</span>
               </div>
               <div class="kpi-value" id="kpi-media">0</div>
-              <div class="kpi-subtext">High-res photographic archive</div>
+              <div class="kpi-subtext">Cloudinary CDN archive</div>
             </div>
 
             <div class="kpi-card">
               <div class="kpi-header">
-                <span class="kpi-label">Cognitive Land Atoms</span>
-                <span class="kpi-icon-box cyan">🌐</span>
+                <span class="kpi-label">Active Directorships</span>
+                <span class="kpi-icon-box cyan">🏛</span>
               </div>
-              <div class="kpi-value cyan">1,800</div>
-              <div class="kpi-subtext">CALI AI Cadastral Partition Grid</div>
+              <div class="kpi-value cyan" id="kpi-roles">3</div>
+              <div class="kpi-subtext">Statutory enterprise boards</div>
             </div>
           </div>
 
@@ -186,65 +213,219 @@
                   </tr>
                 </thead>
                 <tbody id="overview-inquiries-body">
-                  <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading registry...</td></tr>
+                  <tr><td colspan="6" style="text-align: center; color: var(--text-admin-muted);">Loading registry...</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- TAB 2: INQUIRIES & LEADS -->
-        <section id="tab-inquiries" class="admin-tab-pane">
+        <!-- TAB 2: IDENTITY & AVATAR STUDIO -->
+        <section id="tab-identity" class="admin-tab-pane">
+          <div class="split-grid">
+            <!-- Executive Portrait & Avatar Studio -->
+            <div class="admin-card">
+              <h2>Executive Portrait & Avatar Studio</h2>
+              <p>Configure and replace the official high-resolution photograph displayed across the portfolio</p>
+
+              <div class="avatar-studio-box" style="margin-top: 20px;">
+                <div class="avatar-live-preview">
+                  <img id="avatar-preview-img" src="/assets/images/portrait_fallback.jpg" alt="Executive Portrait Preview">
+                  <div class="avatar-preview-badge">Live Asset</div>
+                </div>
+
+                <div class="avatar-studio-actions">
+                  <form id="avatar-upload-form">
+                    <label class="form-group" style="display: block;">
+                      <span style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Upload &amp; Replace Portrait Image</span>
+                      <input type="file" id="avatar-file-input" class="admin-input" accept="image/*" required>
+                    </label>
+                    <button type="submit" id="avatar-upload-btn" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                      Upload New Portrait to Cloudinary &rarr;
+                    </button>
+                  </form>
+
+                  <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--bg-admin-border);">
+                    <label style="font-size: 12px; color: var(--text-admin-secondary); display: block; margin-bottom: 6px;">Or Set Direct Image URL:</label>
+                    <div style="display: flex; gap: 8px;">
+                      <input type="url" id="avatar-url-input" class="admin-input" placeholder="https://res.cloudinary.com/..." style="font-size: 12px;">
+                      <button type="button" id="avatar-save-url-btn" class="btn-subtle" style="white-space: nowrap;">Apply</button>
+                    </div>
+                  </div>
+
+                  <div id="avatar-feedback" style="margin-top: 12px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Stats & Live Counters Scalability -->
+            <div class="admin-card">
+              <h2>Dynamic Hero Counters & Metric Badges</h2>
+              <p>Customize the high-impact operational counters animated in the public hero header</p>
+
+              <form id="hero-stats-form" style="margin-top: 20px;">
+                <div class="form-grid-3">
+                  <div class="form-group">
+                    <label for="stat-directorships">Corporate Directorships</label>
+                    <input type="number" id="stat-directorships" class="admin-input" min="0" value="3">
+                  </div>
+                  <div class="form-group">
+                    <label for="stat-campaigns">State Campaigns</label>
+                    <input type="number" id="stat-campaigns" class="admin-input" min="0" value="5">
+                  </div>
+                  <div class="form-group">
+                    <label for="stat-booths">Booth Networks</label>
+                    <input type="number" id="stat-booths" class="admin-input" min="0" value="100">
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 12px;">
+                  <label for="prof-subroles-input">Marquee Credentials &amp; Subroles (comma-separated)</label>
+                  <textarea id="prof-subroles-input" class="admin-input" rows="3" placeholder="DIRECTOR • CALI AI, QUALIFIED INDEPENDENT DIRECTOR (IICA), Ph.D. SCHOLAR IN SDGs, etc."></textarea>
+                  <small style="color: var(--text-admin-muted); font-size: 11px;">These items scroll infinitely across the high-profile credentials marquee.</small>
+                </div>
+
+                <button type="button" id="save-hero-stats-btn" class="btn-subtle" style="margin-top: 10px; width: 100%;">
+                  Update Counters &amp; Marquee Ticker &rarr;
+                </button>
+                <div id="stats-feedback" style="margin-top: 10px;"></div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Core Executive Positioning & Biography Form -->
+          <div class="admin-card" style="margin-top: 28px;">
+            <div class="card-header-flex">
+              <div>
+                <h2>Core Strategic Positioning & Biography</h2>
+                <p>Modify executive designations, corporate stewardship headlines, and contact coordinates</p>
+              </div>
+              <button id="save-profile-btn" class="btn-primary">Synchronize Public Portfolio &rarr;</button>
+            </div>
+
+            <form id="profile-edit-form" style="margin-top: 24px;">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="prof-name">Executive Name</label>
+                  <input type="text" id="prof-name" class="admin-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="prof-title">Primary Executive Title / Designation</label>
+                  <input type="text" id="prof-title" class="admin-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="prof-role">Corporate Stewardship Headline</label>
+                <input type="text" id="prof-role" class="admin-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="prof-tagline">Strategic Mission Statement</label>
+                <textarea id="prof-tagline" class="admin-input" rows="3" required></textarea>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="prof-email">Official Executive Email</label>
+                  <input type="email" id="prof-email" class="admin-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="prof-website">Enterprise Portal URL</label>
+                  <input type="url" id="prof-website" class="admin-input" required>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="prof-base">Corporate Head Office</label>
+                  <input type="text" id="prof-base" class="admin-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="prof-current-address">Operational Base Address</label>
+                  <input type="text" id="prof-current-address" class="admin-input" required>
+                </div>
+              </div>
+            </form>
+            <div id="profile-feedback" style="margin-top: 14px;"></div>
+          </div>
+        </section>
+
+        <!-- TAB 3: CORPORATE DIRECTORSHIPS & EXPERIENCE -->
+        <section id="tab-experience" class="admin-tab-pane">
           <div class="admin-card">
             <div class="card-header-flex">
               <div>
-                <h2>Executive Communications Registry</h2>
-                <p>Manage, triage, and archive inquiries stored in database</p>
+                <h2>Corporate Directorships &amp; Executive Experience</h2>
+                <p>Manage commercial appointments, company directorships, dates, and operational scopes</p>
               </div>
-
-              <div style="display: flex; gap: 12px; align-items: center;">
-                <input type="text" id="inquiry-search-input" class="admin-input" placeholder="Search by name, email, or org..." style="width: 280px;">
-                <select id="inquiry-filter-status" class="admin-input" style="width: 140px;">
-                  <option value="all">All Statuses</option>
-                  <option value="unread">Unread Only</option>
-                  <option value="reviewed">Reviewed</option>
-                  <option value="archived">Archived</option>
-                </select>
-                <a href="/api/contacts/export" class="btn-subtle" title="Download all leads as CSV file">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                  Export CSV
-                </a>
-              </div>
+              <button class="btn-primary" onclick="openExperienceModal()">+ Add New Directorship / Role</button>
             </div>
 
-            <div class="table-container">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Timestamp</th>
-                    <th>Sender</th>
-                    <th>Email & Contact</th>
-                    <th>Organization</th>
-                    <th>Nature</th>
-                    <th>Status</th>
-                    <th style="text-align: right;">Operations</th>
-                  </tr>
-                </thead>
-                <tbody id="inquiries-full-body">
-                  <tr><td colspan="7" style="text-align: center;">Loading records...</td></tr>
-                </tbody>
-              </table>
+            <div id="experience-list-container" style="margin-top: 24px;">
+              <p style="color: var(--text-admin-muted);">Loading experience records from MongoDB Atlas...</p>
             </div>
           </div>
         </section>
 
-        <!-- TAB 3: MEDIA & CLOUDINARY -->
+        <!-- TAB 4: EDUCATION & STATUTORY CREDENTIALS -->
+        <section id="tab-education" class="admin-tab-pane">
+          <div class="admin-card">
+            <div class="card-header-flex">
+              <div>
+                <h2>Academic Qualifications &amp; Governance Credentials</h2>
+                <p>Manage doctoral degrees, statutory certifications (IICA/MCA), and academic credentials</p>
+              </div>
+              <button class="btn-primary" onclick="openEducationModal()">+ Add Credential / Degree</button>
+            </div>
+
+            <div id="education-list-container" style="margin-top: 24px;">
+              <p style="color: var(--text-admin-muted);">Loading education registry...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 5: SCHOLARLY TREATISES & RESEARCH -->
+        <section id="tab-research" class="admin-tab-pane">
+          <div class="admin-card">
+            <div class="card-header-flex">
+              <div>
+                <h2>Scholarly Treatises, Papers &amp; Publications</h2>
+                <p>Curate empirical research publications in SDGs, Indic epistemology, and sustainable policies</p>
+              </div>
+              <button class="btn-primary" onclick="openResearchModal()">+ Add Research Paper</button>
+            </div>
+
+            <div id="research-list-container" style="margin-top: 24px;">
+              <p style="color: var(--text-admin-muted);">Loading scholarly treatises...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 6: ELECTORAL STRATEGY & REGIONAL RADAR -->
+        <section id="tab-electoral" class="admin-tab-pane">
+          <div class="admin-card">
+            <div class="card-header-flex">
+              <div>
+                <h2>Multi-State Electoral Strategy &amp; Regional Radar</h2>
+                <p>Manage state campaign cards, regional scopes, and grassroots mobilization strategies</p>
+              </div>
+              <button class="btn-primary" onclick="openElectoralModal()">+ Add State Campaign</button>
+            </div>
+
+            <div id="electoral-list-container" style="margin-top: 24px;">
+              <p style="color: var(--text-admin-muted);">Loading state radar registries...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 7: MEDIA & CLOUDINARY STUDIO -->
         <section id="tab-media" class="admin-tab-pane">
           <div class="split-grid">
             <!-- Upload Card -->
             <div class="admin-card">
               <h2>Cloudinary CDN Upload Desk</h2>
-              <p>Upload new photographic documentation directly to Cloudinary asset distribution pipeline</p>
+              <p>Upload new photographic documentation directly to Cloudinary asset pipeline</p>
 
               <form id="admin-upload-form" style="margin-top: 20px;">
                 <div class="form-group">
@@ -295,88 +476,89 @@
                   <strong id="media-cdn-target">Cloudinary (shubham_keshri_portfolio)</strong>
                 </div>
                 <div class="sys-row">
-                  <span>Local Document Fallback:</span>
-                  <strong style="color: var(--emerald-primary);">Active (/assets/images/)</strong>
+                  <span>Live Portfolio Integration:</span>
+                  <strong style="color: var(--emerald-primary);">Synchronized Dynamic Grid</strong>
                 </div>
                 <div class="sys-row">
-                  <span>Resolution Transformation:</span>
-                  <strong>Auto-Optimization & WebP Format</strong>
+                  <span>Transformations:</span>
+                  <strong>Auto WebP &amp; Responsive Delivery</strong>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Existing Media Grid -->
+          <!-- Search & Filter Toolbar -->
           <div class="admin-card" style="margin-top: 28px;">
-            <h2>Photographic Asset Directory</h2>
-            <p>Live registry of all photographic assets displayed on public website</p>
+            <div class="card-header-flex">
+              <div>
+                <h2>Photographic Asset Directory</h2>
+                <p>Replace image files directly on Cloudinary, assign as executive avatar, or edit descriptions</p>
+              </div>
+            </div>
+
+            <div class="filter-search-toolbar" style="margin-top: 16px;">
+              <input type="text" id="media-search-input" class="media-search-input" placeholder="Search archive by keyword...">
+              <div class="filter-pill-group">
+                <button class="filter-pill-item active" data-media-filter="all">All Records</button>
+                <button class="filter-pill-item" data-media-filter="governance">State Policy</button>
+                <button class="filter-pill-item" data-media-filter="grassroots">Grassroots</button>
+                <button class="filter-pill-item" data-media-filter="academic">Scholarship</button>
+                <button class="filter-pill-item" data-media-filter="portrait">Portrait</button>
+              </div>
+            </div>
 
             <div class="media-admin-grid" id="media-admin-grid">
-              <p style="color: var(--text-muted);">Loading media repository...</p>
+              <p style="color: var(--text-admin-muted);">Loading media repository...</p>
             </div>
           </div>
         </section>
 
-        <!-- TAB 4: BIOGRAPHY & CONTENT -->
-        <section id="tab-profile" class="admin-tab-pane">
+        <!-- TAB 8: INQUIRIES & LEADS -->
+        <section id="tab-inquiries" class="admin-tab-pane">
           <div class="admin-card">
             <div class="card-header-flex">
               <div>
-                <h2>Dynamic Profile & Strategic Positioning</h2>
-                <p>Modify executive statements, official contact coordinates, and corporate roles in real time</p>
+                <h2>Executive Communications Registry</h2>
+                <p>Manage, triage, and archive inquiries stored in MongoDB Atlas</p>
               </div>
-              <button id="save-profile-btn" class="btn-primary">Synchronize Live Site &rarr;</button>
+
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="inquiry-search-input" class="admin-input" placeholder="Search by name, email, or org..." style="width: 260px;">
+                <select id="inquiry-filter-status" class="admin-input" style="width: 140px;">
+                  <option value="all">All Statuses</option>
+                  <option value="unread">Unread Only</option>
+                  <option value="reviewed">Reviewed</option>
+                  <option value="archived">Archived</option>
+                </select>
+                <a href="/api/contacts/export" class="btn-subtle" title="Download all leads as CSV file">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  Export CSV
+                </a>
+              </div>
             </div>
 
-            <form id="profile-edit-form" style="margin-top: 24px;">
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="prof-name">Executive Name</label>
-                  <input type="text" id="prof-name" class="admin-input" required>
-                </div>
-                <div class="form-group">
-                  <label for="prof-title">Primary Executive Title</label>
-                  <input type="text" id="prof-title" class="admin-input" required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="prof-role">Corporate Stewardship Headline</label>
-                <input type="text" id="prof-role" class="admin-input" required>
-              </div>
-
-              <div class="form-group">
-                <label for="prof-tagline">Strategic Mission Statement</label>
-                <textarea id="prof-tagline" class="admin-input" rows="3" required></textarea>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="prof-email">Official Executive Email</label>
-                  <input type="email" id="prof-email" class="admin-input" required>
-                </div>
-                <div class="form-group">
-                  <label for="prof-website">Enterprise Portal URL</label>
-                  <input type="url" id="prof-website" class="admin-input" required>
-                </div>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="prof-base">Corporate Head Office</label>
-                  <input type="text" id="prof-base" class="admin-input" required>
-                </div>
-                <div class="form-group">
-                  <label for="prof-current-address">Operational Base Address</label>
-                  <input type="text" id="prof-current-address" class="admin-input" required>
-                </div>
-              </div>
-            </form>
-            <div id="profile-feedback" style="margin-top: 14px;"></div>
+            <div class="table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Sender</th>
+                    <th>Email & Contact</th>
+                    <th>Organization</th>
+                    <th>Nature</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Operations</th>
+                  </tr>
+                </thead>
+                <tbody id="inquiries-full-body">
+                  <tr><td colspan="7" style="text-align: center;">Loading records...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
-        <!-- TAB 5: SYSTEM HEALTH -->
+        <!-- TAB 9: SYSTEM HEALTH -->
         <section id="tab-system" class="admin-tab-pane">
           <div class="admin-card">
             <h2>Executive Infrastructure Diagnostics</h2>
@@ -389,7 +571,7 @@
               </div>
               <div class="sys-row">
                 <span>Database Storage Provider:</span>
-                <strong id="sys-db-provider">MongoDB / Local Cache</strong>
+                <strong id="sys-db-provider">MongoDB Atlas Cloud Cluster</strong>
               </div>
               <div class="sys-row">
                 <span>Active API Backend URL:</span>
@@ -415,7 +597,7 @@
     </main>
   </div>
 
-  <!-- Message Detail Modal -->
+  <!-- MODAL 1: Message Detail Modal -->
   <div id="message-modal" class="modal-backdrop" style="display: none;">
     <div class="modal-card">
       <div class="modal-header">
@@ -423,11 +605,266 @@
         <button id="modal-msg-close" class="modal-close">&times;</button>
       </div>
       <div class="modal-body" id="modal-msg-body">
-        <!-- Dynamically rendered -->
+        <!-- Rendered dynamically -->
       </div>
       <div class="modal-footer" id="modal-msg-footer">
-        <!-- Buttons -->
+        <!-- Action buttons -->
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Experience / Directorship Modal -->
+  <div id="experience-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-exp-title">Add Directorship / Corporate Role</h3>
+        <button class="modal-close" onclick="closeExperienceModal()">&times;</button>
+      </div>
+      <form id="experience-form">
+        <input type="hidden" id="exp-id">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="exp-company">Company / Organization *</label>
+              <input type="text" id="exp-company" class="admin-input" placeholder="e.g. CALI AI Private Limited" required>
+            </div>
+            <div class="form-group">
+              <label for="exp-role">Role / Designation *</label>
+              <input type="text" id="exp-role" class="admin-input" placeholder="e.g. Director" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="exp-period">Tenure / Period *</label>
+              <input type="text" id="exp-period" class="admin-input" placeholder="e.g. 2023 – Present" required>
+            </div>
+            <div class="form-group">
+              <label for="exp-location">Location / Base</label>
+              <input type="text" id="exp-location" class="admin-input" placeholder="e.g. New Delhi, India">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="exp-website">Enterprise Website URL</label>
+              <input type="url" id="exp-website" class="admin-input" placeholder="https://calideeptechai.com">
+            </div>
+            <div class="form-group">
+              <label for="exp-active">Appointment Status</label>
+              <select id="exp-active" class="admin-input">
+                <option value="true">Active Directorship</option>
+                <option value="false">Past / Emeritus Appointment</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exp-description">Operational Governance Description</label>
+            <textarea id="exp-description" class="admin-input" rows="3" placeholder="Strategic oversight, deep-tech infrastructure development..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-subtle" onclick="closeExperienceModal()">Cancel</button>
+          <button type="submit" id="exp-save-btn" class="btn-primary">Save Directorship &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Education & Credentials Modal -->
+  <div id="education-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-edu-title">Add Academic / Statutory Credential</h3>
+        <button class="modal-close" onclick="closeEducationModal()">&times;</button>
+      </div>
+      <form id="education-form">
+        <input type="hidden" id="edu-id">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="edu-degree">Degree / Certification Title *</label>
+              <input type="text" id="edu-degree" class="admin-input" placeholder="e.g. Doctor of Philosophy (Ph.D.) in SDGs" required>
+            </div>
+            <div class="form-group">
+              <label for="edu-inst">Institution / Governing Body *</label>
+              <input type="text" id="edu-inst" class="admin-input" placeholder="e.g. Amity University / IICA" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="edu-year">Year / Duration *</label>
+              <input type="text" id="edu-year" class="admin-input" placeholder="e.g. 2022 – 2025 or May 2020" required>
+            </div>
+            <div class="form-group">
+              <label for="edu-field">Field / Domain</label>
+              <input type="text" id="edu-field" class="admin-input" placeholder="e.g. Sustainable Development Goals">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edu-description">Fiduciary / Academic Details</label>
+            <textarea id="edu-description" class="admin-input" rows="3" placeholder="Empirical doctoral research, statutory MCA guidelines..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-subtle" onclick="closeEducationModal()">Cancel</button>
+          <button type="submit" id="edu-save-btn" class="btn-primary">Save Credential &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Research Treatises Modal -->
+  <div id="research-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-res-title">Add Scholarly Publication</h3>
+        <button class="modal-close" onclick="closeResearchModal()">&times;</button>
+      </div>
+      <form id="research-form">
+        <input type="hidden" id="res-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="res-title">Paper / Treatise Title *</label>
+            <input type="text" id="res-title" class="admin-input" placeholder="e.g. सम्प्रत्ययन-मीमांसा" required>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="res-journal">Journal / Academic Forum *</label>
+              <input type="text" id="res-journal" class="admin-input" placeholder="e.g. Naagfani Academic Journal" required>
+            </div>
+            <div class="form-group">
+              <label for="res-year">Year / Period</label>
+              <input type="text" id="res-year" class="admin-input" placeholder="e.g. 2021">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="res-abstract">Abstract &amp; Epistemological Framework</label>
+            <textarea id="res-abstract" class="admin-input" rows="3" placeholder="Treatise on belief, epistemology, and cognitive validation..."></textarea>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="res-link">DOI / Document URL</label>
+              <input type="url" id="res-link" class="admin-input" placeholder="https://...">
+            </div>
+            <div class="form-group">
+              <label for="res-tags">Subject Tags (comma-separated)</label>
+              <input type="text" id="res-tags" class="admin-input" placeholder="SDGs, Nyaya, Epistemology">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-subtle" onclick="closeResearchModal()">Cancel</button>
+          <button type="submit" id="res-save-btn" class="btn-primary">Save Publication &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 5: Electoral Strategy Modal -->
+  <div id="electoral-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-elec-title">Add Regional Electoral Campaign</h3>
+        <button class="modal-close" onclick="closeElectoralModal()">&times;</button>
+      </div>
+      <form id="electoral-form">
+        <input type="hidden" id="elec-id">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="elec-state">State / Region Name *</label>
+              <input type="text" id="elec-state" class="admin-input" placeholder="e.g. Tripura or Odisha" required>
+            </div>
+            <div class="form-group">
+              <label for="elec-territory">Strategic Territory Badge *</label>
+              <input type="text" id="elec-territory" class="admin-input" placeholder="e.g. Pratapgarh & Shadar" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="elec-summary">Strategic Campaign Summary</label>
+            <textarea id="elec-summary" class="admin-input" rows="3" placeholder="Spearheaded youth mobilization, digital voter roll verification..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="elec-scope">Operational Scope Items (One bullet per line)</label>
+            <textarea id="elec-scope" class="admin-input" rows="4" placeholder="Booth Level Committees (100+ units)&#10;Tribal Demographic Micro-Targeting&#10;Youth Electoral Literacy Programs"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-subtle" onclick="closeElectoralModal()">Cancel</button>
+          <button type="submit" id="elec-save-btn" class="btn-primary">Save State Campaign &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 6: Replace Media File on Cloudinary Modal -->
+  <div id="media-replace-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Replace Asset on Cloudinary CDN</h3>
+        <button class="modal-close" onclick="closeMediaReplaceModal()">&times;</button>
+      </div>
+      <form id="media-replace-form">
+        <input type="hidden" id="replace-media-id">
+        <div class="modal-body">
+          <p style="font-size: 13px; color: var(--text-admin-secondary); margin-bottom: 16px;">
+            Selecting a new image file will upload the file to Cloudinary and update the link in MongoDB Atlas immediately.
+          </p>
+          <div class="form-group">
+            <label for="replace-file-input">Select Replacement Image *</label>
+            <input type="file" id="replace-file-input" class="admin-input" accept="image/*" required>
+          </div>
+          <div class="form-group">
+            <label for="replace-title-input">Asset Title</label>
+            <input type="text" id="replace-title-input" class="admin-input">
+          </div>
+          <div class="form-group">
+            <label for="replace-caption-input">Caption / Strategic Context</label>
+            <textarea id="replace-caption-input" class="admin-input" rows="2"></textarea>
+          </div>
+          <div id="replace-feedback" style="margin-top: 10px;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-subtle" onclick="closeMediaReplaceModal()">Cancel</button>
+          <button type="submit" id="replace-submit-btn" class="btn-primary">Upload &amp; Replace on CDN &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 7: Edit Media Metadata Modal -->
+  <div id="media-edit-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Edit Asset Metadata</h3>
+        <button class="modal-close" onclick="closeMediaEditModal()">&times;</button>
+      </div>
+      <form id="media-edit-form">
+        <input type="hidden" id="edit-media-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="edit-media-title">Asset Title</label>
+            <input type="text" id="edit-media-title" class="admin-input" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-media-category">Portfolio Archive Category</label>
+            <select id="edit-media-category" class="admin-input">
+              <option value="governance">State Policy & Governance</option>
+              <option value="grassroots">Grassroots & Social Action</option>
+              <option value="academic">Scholarship & Culture</option>
+              <option value="portrait">Executive Portrait</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-media-caption">Contextual Caption</label>
+            <textarea id="edit-media-caption" class="admin-input" rows="3"></textarea>
+          </div>
+          <div id="media-edit-feedback" style="margin-top: 10px;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-subtle" onclick="closeMediaEditModal()">Cancel</button>
+          <button type="submit" id="media-edit-save-btn" class="btn-primary">Save Metadata &rarr;</button>
+        </div>
+      </form>
     </div>
   </div>
 

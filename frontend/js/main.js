@@ -450,15 +450,19 @@ async function loadDynamicMedia() {
         card.innerHTML = `
           <div class="gallery-card-img-box">
             <span class="gallery-card-tag">${tagLabel}</span>
-            <img src="${imgUrl}" alt="${item.title || 'Dr. Shubham Keshri'}" loading="lazy" />
+            <img src="${imgUrl}" alt="${item.title ? escapeHtml(item.title) : 'Dr. Shubham Keshri'}" loading="lazy" />
           </div>
           <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${item.title || 'Executive Archive'}</h3>
-            <p class="gallery-card-desc">${item.caption || ''}</p>
+            <h3 class="gallery-card-title">${item.title ? escapeHtml(item.title) : 'Executive Archive'}</h3>
+            <p class="gallery-card-desc">${item.caption ? escapeHtml(item.caption) : ''}</p>
           </div>
         `;
         grid.appendChild(card);
       });
+
+      // Update pill count
+      const allPill = document.querySelector('.filter-pill-btn[data-filter="all"]');
+      if (allPill) allPill.textContent = `All Records (${json.data.length})`;
 
       // Rebind tilt, filter, and lightbox on new cards
       initGalleryFilterAndLightbox();
@@ -469,7 +473,7 @@ async function loadDynamicMedia() {
   }
 }
 
-// DYNAMIC API HYDRATION 2: Load Profile from MongoDB Atlas
+// DYNAMIC API HYDRATION 2: Scalable Executive Profile from MongoDB Atlas
 async function loadDynamicProfile() {
   try {
     const res = await fetch(apiUrl('/api/profile'));
@@ -479,29 +483,206 @@ async function loadDynamicProfile() {
     if (json.success && json.data) {
       const p = json.data;
 
-      // Update avatar if Cloudinary URL is returned
+      // 1. Executive Avatar / Portrait
       if (p.avatarUrl) {
         const avatarEl = document.getElementById('executive-portrait-img') || document.querySelector('.portrait-inner img');
         if (avatarEl) avatarEl.src = p.avatarUrl;
       }
 
-      // Update name & role
+      // 2. Name & Primary Titles
       if (p.name) {
         document.querySelectorAll('.brand-meta h2, .portrait-hologram-footer h4').forEach(el => {
           el.textContent = p.name;
         });
       }
 
+      if (p.title) {
+        document.querySelectorAll('.brand-meta .mono').forEach(el => {
+          el.textContent = p.title.toUpperCase();
+        });
+      }
+
       if (p.executiveRole) {
-        const badge = document.querySelector('.hero-role-badge');
-        if (badge) badge.innerHTML = `<span class="badge-dot pulse"></span> ${p.executiveRole}`;
         const footerRole = document.querySelector('.portrait-hologram-footer p');
         if (footerRole) footerRole.textContent = p.executiveRole;
       }
+
+      // 3. Strategic Mission Statement / Tagline
+      if (p.tagline) {
+        const descEl = document.querySelector('.hero-desc');
+        if (descEl) descEl.textContent = p.tagline;
+      }
+
+      // 4. Dynamic Hero Stat Counters
+      if (p.heroStats) {
+        const statItems = document.querySelectorAll('.hero-stats-row .stat-item');
+        if (statItems[0] && p.heroStats.directorships !== undefined) {
+          const numEl = statItems[0].querySelector('.stat-number');
+          if (numEl) {
+            numEl.setAttribute('data-target', p.heroStats.directorships);
+            numEl.innerHTML = `${p.heroStats.directorships}<span>+</span>`;
+          }
+        }
+        if (statItems[1] && p.heroStats.campaigns !== undefined) {
+          const numEl = statItems[1].querySelector('.stat-number');
+          if (numEl) {
+            numEl.setAttribute('data-target', p.heroStats.campaigns);
+            numEl.innerHTML = `${p.heroStats.campaigns}<span>+</span>`;
+          }
+        }
+        if (statItems[2] && p.heroStats.booths !== undefined) {
+          const numEl = statItems[2].querySelector('.stat-number');
+          if (numEl) {
+            numEl.setAttribute('data-target', p.heroStats.booths);
+            numEl.innerHTML = `${p.heroStats.booths}<span>+</span>`;
+          }
+        }
+      }
+
+      // 5. Infinite Credentials Marquee Ticker
+      if (p.subroles && Array.isArray(p.subroles) && p.subroles.length > 0) {
+        const marqueeContent = document.querySelector('.marquee-content');
+        if (marqueeContent) {
+          const itemsHtml = p.subroles.map(r => `
+            <div class="marquee-item"><span class="marquee-star">✦</span> ${escapeHtml(r.toUpperCase())}</div>
+          `).join('');
+          marqueeContent.innerHTML = itemsHtml + itemsHtml; // duplicate for seamless loop
+        }
+      }
+
+      // 6. Corporate Directorships & Experience
+      if (p.companies && Array.isArray(p.companies) && p.companies.length > 0) {
+        const expGrid = document.getElementById('experience-grid');
+        if (expGrid) {
+          expGrid.innerHTML = p.companies.map(c => `
+            <div class="directorship-card reveal-item revealed">
+              <div class="directorship-top-head">
+                <div>
+                  <div class="directorship-role">${escapeHtml(c.role || 'Executive Directorship')}</div>
+                  <h4>${escapeHtml(c.name)}</h4>
+                </div>
+                <span class="directorship-badge ${c.isActive ? '' : 'past'}">
+                  ${c.isActive ? 'Active Directorship' : 'Past Appointment'}
+                </span>
+              </div>
+              <p class="directorship-desc">${escapeHtml(c.description || '')}</p>
+              <div class="directorship-footer">
+                <span>${escapeHtml(c.period || '')}${c.location ? ` &bull; ${escapeHtml(c.location)}` : ''}</span>
+                ${c.website ? `<a href="${c.website}" target="_blank" rel="noopener">${cleanUrl(c.website)} ↗</a>` : ''}
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      // 7. Multi-State Electoral Strategy Radar
+      if (p.electoralStrategy && Array.isArray(p.electoralStrategy) && p.electoralStrategy.length > 0) {
+        const radarGrid = document.querySelector('.states-radar-grid');
+        if (radarGrid) {
+          radarGrid.innerHTML = p.electoralStrategy.map(s => `
+            <div class="state-radar-card reveal-item revealed">
+              <div class="state-top-head">
+                <h4>${escapeHtml(s.state)}</h4>
+                <span class="state-badge">${escapeHtml(s.territory || 'Constituency Unit')}</span>
+              </div>
+              <p class="state-desc">${escapeHtml(s.summary || '')}</p>
+              ${s.scope && s.scope.length ? `
+                <div class="state-meta-box">
+                  <strong>Operational Scope</strong>
+                  <ul>
+                    ${s.scope.map(sc => `<li>${escapeHtml(sc)}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+          `).join('');
+        }
+      }
+
+      // 8. Scholarly Research & Academic Credentials Timeline
+      const timeline = document.querySelector('.research-timeline-list');
+      if (timeline && ((p.education && p.education.length > 0) || (p.research && p.research.length > 0))) {
+        let timelineRows = '';
+
+        // Add Education Credentials
+        if (p.education && p.education.length > 0) {
+          p.education.forEach(e => {
+            timelineRows += `
+              <div class="timeline-row reveal-item revealed">
+                <div>
+                  <span class="timeline-year-tag">${escapeHtml(e.year || 'Academic')}</span>
+                  <p class="timeline-inst">${escapeHtml(e.institution || '')}</p>
+                </div>
+                <div class="timeline-content">
+                  <h3>${escapeHtml(e.degree)}</h3>
+                  <p>${escapeHtml(e.description || '')}</p>
+                </div>
+              </div>
+            `;
+          });
+        }
+
+        // Add Research Treatises
+        if (p.research && p.research.length > 0) {
+          p.research.forEach(r => {
+            timelineRows += `
+              <div class="timeline-row reveal-item revealed">
+                <div>
+                  <span class="timeline-year-tag">${escapeHtml(r.year || 'Published Treatise')}</span>
+                  <p class="timeline-inst">${escapeHtml(r.journal || 'Academic Forum')}</p>
+                </div>
+                <div class="timeline-content">
+                  <h3>${escapeHtml(r.title)}</h3>
+                  <p>${escapeHtml(r.abstract || '')}</p>
+                  ${r.link ? `<p style="margin-top: 8px;"><a href="${r.link}" target="_blank" style="color: var(--cyan-primary); font-size: 13px;">View Document / Publication ↗</a></p>` : ''}
+                </div>
+              </div>
+            `;
+          });
+        }
+
+        if (timelineRows) {
+          timeline.innerHTML = timelineRows;
+        }
+      }
+
+      // 9. Contact Desk Metadata
+      if (p.contacts) {
+        if (p.contacts.email) {
+          document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+            a.href = `mailto:${p.contacts.email}`;
+            a.textContent = p.contacts.email;
+          });
+        }
+        if (p.contacts.companyWebsite) {
+          document.querySelectorAll('a[href*="calideeptechai.com"]').forEach(a => {
+            a.href = p.contacts.companyWebsite;
+            a.textContent = `${cleanUrl(p.contacts.companyWebsite)} ↗`;
+          });
+        }
+      }
+
+      // Re-trigger reveal observer for newly injected elements
+      initScrollReveal();
     }
   } catch (err) {
     console.warn('Notice: Profile operating on pre-rendered fallback:', err.message);
   }
+}
+
+function cleanUrl(url) {
+  if (!url) return '';
+  return url.replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 // 9. Consultation Form Submission (MongoDB API)
