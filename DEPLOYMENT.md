@@ -118,7 +118,9 @@ graph TD
    - `CLOUDINARY_API_KEY`: `789451557362313`
    - `CLOUDINARY_API_SECRET`: `Jn5ZxBfJp6pkOe7nzxCNtEOSaTk`
    - `CLOUDINARY_URL`: `cloudinary://789451557362313:Jn5ZxBfJp6pkOe7nzxCNtEOSaTk@jzmuwtrf`
-   - `CORS_ORIGIN`: `*`
+   - `CLIENT_URL`: `https://drshubhamkeshri.vercel.app`
+   - `FRONTEND_URL`: `https://drshubhamkeshri.vercel.app`
+   - `CORS_ORIGIN`: `https://drshubhamkeshri.vercel.app,*`
    - `ADMIN_PASSKEY`: `keshri2026`
 6. Click **Deploy Web Service**.
 7. Copy your assigned Render URL (e.g. `https://dr-shubham-keshri-portfolio-backend.onrender.com`).

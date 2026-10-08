@@ -17,9 +17,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS configuration for Render + Vercel
-const allowedOrigins = (process.env.CORS_ORIGIN || '*')
-  .split(',')
-  .map(o => o.trim());
+const rawOrigins = [
+  process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+  ...(process.env.CORS_ORIGIN || '*').split(',')
+];
+
+const allowedOrigins = rawOrigins
+  .filter(Boolean)
+  .map(o => o.trim().replace(/\/+$/, ''));
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -27,7 +33,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    // Allow all vercel deployment preview URLs
+    // Allow all vercel deployment preview & production URLs
     if (/^https:\/\/.*\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }

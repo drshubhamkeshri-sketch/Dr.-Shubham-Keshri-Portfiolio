@@ -22,7 +22,11 @@ services:
         sync: false
       - key: CLOUDINARY_URL
         sync: false
+      - key: CLIENT_URL
+        value: https://drshubhamkeshri.vercel.app
+      - key: FRONTEND_URL
+        value: https://drshubhamkeshri.vercel.app
       - key: CORS_ORIGIN
-        value: "*"
+        value: "https://drshubhamkeshri.vercel.app,*"
       - key: ADMIN_PASSKEY
         value: keshri2026
